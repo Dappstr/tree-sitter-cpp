@@ -103,6 +103,7 @@ module.exports = grammar(C, {
     [$.field_expression, $.template_method, $.template_type],
     [$.field_expression, $.template_method],
     [$.qualified_field_identifier, $.template_method, $.template_type],
+    [$._declaration_modifiers, $.friend_declaration],
     [$.type_specifier, $.template_type, $.template_function, $.expression],
     [$.splice_type_specifier, $.splice_expression],
   ],
@@ -655,6 +656,7 @@ module.exports = grammar(C, {
     pure_virtual_clause: _ => seq('=', /0/, ';'),
 
     friend_declaration: $ => seq(
+      optional($.attribute_declaration),
       optional('constexpr'),
       'friend',
       choice(
